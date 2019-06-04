@@ -178,6 +178,7 @@
             <div id="iw-name"></div>
             <div class="popup-info" id="iw-email"></div>
             <div class="popup-info" id="iw-address"></div>
+            <div id="iw-description"></div>
             <div id="iw-website-holder"><a href="" target="_blank" class="popup-info" id="iw-website"></a></div>
             <div id="iw-facebook-holder"><a href="" target="_blank" class="popup-info" id="iw-facebook"></a></div>
         </div>
@@ -483,6 +484,11 @@
                     $("#iw-facebook").html(marker.placeResult.facebook).attr('href', 'http://'+marker.placeResult.facebook);
                 } else {
                     $("#iw-facebook-holder").hide();
+                }
+                if (marker.placeResult.description) {
+                    $("#iw-description").show().html(marker.placeResult.description);
+                } else {
+                    $("#iw-description").hide();
                 }
             });
         }

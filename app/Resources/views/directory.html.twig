@@ -22,7 +22,9 @@
                     {% if app.user.org %}
                         Organisation: <strong>{{ app.user.org.name }}</strong>
                     {% else %}
+                        {% if app.request.attributes.get('_route') != 'org' %}
                         <a href="{{ path('org') }}" class="btn btn-xs btn-success">Add organisation</a>
+                        {% endif %}
                     {% endif %}
                 </span>
                     </p>

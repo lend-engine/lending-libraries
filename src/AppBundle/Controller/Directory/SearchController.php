@@ -59,6 +59,7 @@ class SearchController extends Controller
                         "email" => $site->getOrg()->getEmail(),
                         "tags" => $site->getOrg()->getLends(),
                         "address" => $site->getAddress(),
+                        "description" => $site->getOrg()->getDescription(),
                         "opening_hours" => 'hours here',
                         "website"  => $website,
                         "facebook"  => $facebook,
