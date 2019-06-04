@@ -27,10 +27,12 @@
                             <td>{{ contact.firstName }}</td>
                             <td>{{ contact.lastName }}</td>
                             <td>
-                                {% if contact.createdBy == contact %}
-                                    <strong>Self</strong>
-                                {% else %}
-                                    {{ contact.createdBy.firstName }} {{ contact.createdBy.lastName }}
+                                {% if contact.createdBy %}
+                                    {% if contact.createdBy == contact %}
+                                        <strong>Self</strong>
+                                    {% else %}
+                                        {{ contact.createdBy.firstName }} {{ contact.createdBy.lastName }}
+                                    {% endif %}
                                 {% endif %}
                             </td>
                             <td>{{ contact.email }}</td>
