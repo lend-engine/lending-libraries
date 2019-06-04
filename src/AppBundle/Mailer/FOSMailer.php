@@ -53,9 +53,9 @@ class FOSMailer implements MailerInterface
         try {
             $client = new PostmarkClient($postmarkApiKey);
             $client->sendEmail(
-                "Lend Engine <hello@lending-libraries.online>",
+                "The Lending Library Directory <hello@lending-libraries.online>",
                 $toEmail,
-                "You've been added to the Lend Engine directory",
+                "You've been added to The Lending Library Directory",
                 $message
             );
         } catch (PostmarkException $e) {
@@ -68,7 +68,7 @@ class FOSMailer implements MailerInterface
         try {
             $client = new PostmarkClient($postmarkApiKey);
             $client->sendEmail(
-                "Lend Engine <hello@lending-libraries.online>",
+                "The Lending Library Directory <hello@lending-libraries.online>",
                 "chris@lend-engine.com",
                 "New directory registration : ".$user->getOrg()->getName(),
                 $message
@@ -104,7 +104,7 @@ class FOSMailer implements MailerInterface
         try {
             $client = new PostmarkClient($postmarkApiKey);
             $client->sendEmail(
-                "Lend Engine <{$fromEmail}>",
+                "The Lending Library Directory <{$fromEmail}>",
                 $toEmail,
                 "Reset your password.",
                 $message
