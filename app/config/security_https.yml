@@ -15,10 +15,10 @@ security:
                 provider: fos_userbundle
                 csrf_token_generator: security.csrf.token_manager
                 always_use_default_target_path: true
-                default_target_path: directory
+                default_target_path: homepage
             logout:
                 path:   /logout
-                target: directory
+                target: homepage
             anonymous:    true
     access_control:
         - { path: ^/admin, role: ROLE_ADMIN, requires_channel: https }
