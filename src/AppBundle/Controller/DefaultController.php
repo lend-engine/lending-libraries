@@ -31,6 +31,14 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Route("/claim-org", name="claim_org")
+     */
+    public function claimOrg(Request $request)
+    {
+        return $this->render('directory/claim_org.html.twig', []);
+    }
+
+    /**
      * @Route("/terms-and-conditions", name="terms")
      */
     public function termsAction(Request $request)
