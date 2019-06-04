@@ -27,7 +27,6 @@ class ContactUsController extends Controller
             $subject    = $form->get('subject')->getData();
             $fromEmail  = $form->get('email')->getData();
             $message    = $form->get('message')->getData();
-            $library    = $form->get('library')->getData();
 
             try {
 
@@ -36,7 +35,6 @@ class ContactUsController extends Controller
                     'emails/contact.html.twig',
                     [
                         'message' => $message,
-                        'library' => $library,
                         'from'    => $fromEmail
                     ]
                 );

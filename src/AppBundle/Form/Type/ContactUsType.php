@@ -40,14 +40,6 @@ class ContactUsType extends AbstractType
             ]
         ));
 
-        $builder->add('library', TextType::class, array(
-            'label' => 'Your library URL or name',
-            'required' => true,
-            'attr' => [
-                'placeholder' => 'Organisation or URL eg library.lend-engine-app.com'
-            ]
-        ));
-
         $builder->add('message', TextareaType::class, array(
             'label' => 'Message',
             'required' => true,
