@@ -168,7 +168,7 @@ class OrgRegistrationController extends Controller
         $user = $userManager->findUserByConfirmationToken($token);
 
         if (null === $user) {
-            $this->addFlash("error", "We can't find a user with that confirmation token - please email hello@lend-engine.com to activate your account.");
+            $this->addFlash("error", "We can't find a user with that confirmation token - please email hello@lending-libraries.online to activate your account.");
             return $this->redirectToRoute('directory');
 //            throw new NotFoundHttpException(sprintf('The user with confirmation token "%s" does not exist', $token));
         }

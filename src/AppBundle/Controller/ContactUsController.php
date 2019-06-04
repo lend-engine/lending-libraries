@@ -41,7 +41,7 @@ class ContactUsController extends Controller
                     ]
                 );
                 $client->sendEmail(
-                    "hello@lend-engine.com",
+                    "hello@lending-libraries.online",
                     "chris@lend-engine.com",
                     $subject,
                     $message,

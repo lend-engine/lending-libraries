@@ -58,8 +58,8 @@ fos_user:
     firewall_name: main
     user_class: AppBundle\Entity\Contact
     from_email:
-        address: hello@lend-engine.com
-        sender_name: Lend Engine
+        address: hello@lending-libraries.online
+        sender_name: Lending Library Directory
     resetting:
         token_ttl: 3600
         email:
