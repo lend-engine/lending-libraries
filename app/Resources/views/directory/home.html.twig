@@ -145,25 +145,26 @@
                             If you know a library of things near you that's not on the list, please <a href="{{ path('contact_us') }}">get in touch</a> and we'll add it.
                             <br>SHARE the directory on your social channels. The more people that know, the better.
                         </p>
+                        <br><br>
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <div id="listings-wrapper">
+                    <div id="welcome">
+                        <p><strong>Welcome!</strong></p>
+                        <p>
+                            This open directory of lending libraries is for the benefit of anyone wanting to borrow
+                            an item from a local community provider rather than buying new.
+                        </p>
+                        <p>
+                            Search by entering your town, or let us use your current location by clicking the arrow.
+                        </p>
+                    </div>
+                    <div id="listings-wrapper" style="display: none">
                         <ul id="listings"></ul>
                         <div id="no-result" class="alert alert-warning" style="display: none">
                             We don't have any libraries listed in this area, sorry.
                             <br><br>
                             <a href="{{ path('org') }}" class="btn btn-success">Add your organisation</a>
-                        </div>
-                        <div id="welcome">
-                            <p><strong>Welcome!</strong></p>
-                            <p>
-                                This open directory of lending libraries is for the benefit of anyone wanting to borrow
-                                an item from a local community provider rather than buying new.
-                            </p>
-                            <p>
-                                Search by entering your town, or let us use your current location by clicking the arrow.
-                            </p>
                         </div>
                     </div>
                 </div>
@@ -445,6 +446,7 @@
         }
 
         function addResult(result, i) {
+            $("#listings").show();
             var results = document.getElementById('results');
             var markerLetter = String.fromCharCode('A'.charCodeAt(0) + (i % 26));
             var markerIcon = MARKER_PATH + markerLetter + '.png';
