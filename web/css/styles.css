@@ -1,0 +1,314 @@
+html {
+    height: 100%;
+}
+
+body {
+    background: #fff;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: 300;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.tm-white a {
+    color: #fff;
+}
+
+/* start h1 group */
+h1 {
+    margin-top: 20px;
+    margin-bottom: 15px;
+    font-family: 'Asap', sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    font-family: 'Asap', sans-serif;
+}
+
+.container h3 {
+    margin-top: 0;
+}
+
+/* end h1 group */
+
+p {
+    line-height: 1.6em;
+    font-size: 16px;
+}
+
+a, .btn {
+    font-size: 16px;
+}
+
+.btn {
+    border-radius: 0;
+}
+
+.color-wt {
+    color: #fff;
+}
+
+/* img */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.content-box {
+    padding: 20px;
+    text-align: left;
+}
+
+.content-box h3 {
+    margin-top: 20px;
+}
+
+.help-block {
+    display:block;
+}
+
+.form-group {
+    clear:left;
+}
+
+/* img */
+
+/* overlay */
+.overlay {
+    width: 100%;
+    height: 100%;
+    padding-top: 90px;
+    padding-bottom: 90px;
+}
+
+/* over lay */
+
+/* start page container */
+@media (min-width: 768px) {
+    .container {
+        width: 700px;
+    }
+}
+
+@media (min-width: 992px) {
+    .container {
+        width: 900px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .container {
+        width: 1000px;
+    }
+}
+
+/* end page container */
+
+/* start navigation */
+.nav {
+    font-family: 'Asap', sans-serif;
+}
+
+.navbar-default {
+    background: #fafafa;
+    border: none;
+    margin: 0 !important;
+    border-bottom: 1px solid #DDD;
+}
+
+.navbar-default .navbar-brand {
+    color: #000;
+    height: 20px;
+    line-height: 20px;
+    font-family: 'Asap', sans-serif;
+}
+
+.navbar-default .nav li {
+
+}
+
+.navbar-default .nav li a {
+    color: #97aab5;
+    height: 50px;
+}
+
+.navbar-default .nav li a:hover,
+.navbar-default .nav li a:focus,
+.navbar-default .nav li a.current {
+    color: #000;
+}
+
+.navbar-default .navbar-toggle {
+    border: none;
+}
+
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+    background-color: transparent
+}
+
+.navbar-default .dropdown-menu li a {
+    line-height: 35px;
+}
+
+/* end navigation */
+
+/* start divider */
+#divider {
+    text-align: center;
+    padding-top: 40px;
+    padding-bottom: 80px;
+}
+
+#divider .fa {
+    color: #fff;
+    font-size: 60px;
+}
+
+/* end divider */
+
+#feature-heading {
+    margin-top: 50px;
+    background-color: #fafafa;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    box-shadow: 0 2px 8px 0 rgba(50, 50, 50, 0.08);
+}
+
+#directory-heading {
+    margin-top: 50px;
+    background-color: #fafafa;
+    padding: 0;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #ddd;
+    box-shadow: 0 2px 8px 0 rgba(50, 50, 50, 0.08);
+}
+
+/* start feature */
+#feature {
+    background: #f8f8f8;
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+#feature p {
+    padding-top: 10px;
+}
+
+#feature span {
+    float: left;
+}
+
+/* end feature */
+
+/* start feature1 */
+#feature1 {
+    padding-top: 10px;
+    padding-bottom: 60px;
+}
+
+#feature1 p {
+    padding-top: 10px;
+}
+
+.title-icon {
+    font-size: 80px;
+    margin: 0 25px;
+}
+
+/* start contact */
+#contact {
+
+}
+
+#contact .form-control {
+    border-radius: 0;
+    box-shadow: none;
+    margin-bottom: 20px;
+}
+
+#contact input {
+    height: 50px;
+}
+
+/* end contact */
+
+#wrapper {
+    min-height:100%;
+    position:relative;
+}
+
+#content {
+    padding-bottom:180px;
+}
+
+#footer-message {
+    background-color: #fafafa;
+    border-top: 1px solid #ccc;
+    position: absolute;
+    bottom: 140px;
+    width:100%;
+}
+
+/* start footer */
+#footer {
+    background: #484848;
+    color: #fff;
+    font-weight: 400;
+    text-align: left;
+    padding: 20px;
+    border-top: 1px solid #000;
+    height: 140px;
+    position: absolute;
+    bottom: 0;
+    width:100%;
+}
+
+#footer .nav>li>a {
+    padding: 6px 0;
+    color: #97aab5;
+    margin-right: 10px;
+}
+
+#footer .nav>li>a:hover {
+    text-decoration: underline;
+    background-color: transparent;
+    color: #fff;
+}
+
+/* end footer */
+
+@media (min-width: 768px) {
+    .navbar-right .dropdown-menu {
+        right: auto;
+    }
+}
+    
+    
+@media screen and ( max-width: 991px ) {
+    .templatemo-box {
+        margin-bottom: 30px;
+    }
+}
+
+@media screen and ( max-width: 767px ) {
+    .navbar-default .nav li a {
+        height: auto;
+        line-height: 2em;
+    }
+    #contact .overlay {
+        padding-top: 40px;
+    }
+}
+
+/* start media 360 */
+@media screen and ( max-width: 360px ) {
+
+}
+/* end media 360 */

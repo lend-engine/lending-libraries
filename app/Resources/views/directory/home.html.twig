@@ -1,0 +1,489 @@
+{% extends 'directory.html.twig' %}
+
+{% block title %}A directory of lending organisations{% endblock %}
+
+{% block head %}
+
+    <style>
+        .listing-labels {
+            padding: 4px 0;
+        }
+        .listing-labels .label {
+            margin-right: 6px;
+            margin-bottom: 2px;
+            background-color: #97aab5;
+        }
+        #map {
+            height:450px;
+            width:100%;
+            display:block;
+        }
+        .gm-style .gm-style-iw-c {
+            border-radius: 0 !important;
+            padding: 15px !important;
+        }
+        div#listings-wrapper {
+            max-height: 600px;
+            overflow-y: scroll;
+        }
+        ul#listings {
+            margin: 0;
+            padding: 0;
+        }
+        li.listing-result {
+            list-style-type: none;
+            padding: 4px;
+            border-bottom: 1px dotted #ccc;
+            cursor: pointer;
+        }
+        div.listing-address {
+            font-size: 11px;
+            color: #aaa;
+        }
+        #iw-name {
+            font-size: 14px;
+            margin-bottom: 6px;
+            font-weight: bold;
+            padding-bottom: 6px;
+            border-bottom: 1px solid #aaa;
+        }
+        .popup-info {
+            font-size: 12px;
+            padding: 2px 0;
+        }
+        .placeIcon {
+            width: 20px;
+            height: 34px;
+            margin: 4px 10px 4px 4px;
+            float: left;
+        }
+        label.tag {
+            margin-right: 10px;
+            font-size: 11px;
+        }
+        #info-content {
+            min-height: 100px;
+        }
+    </style>
+{% endblock %}
+
+{% block hero %}
+    <section id="directory-heading">
+        <div class="container"></div>
+    </section>
+{% endblock %}
+
+{% block body %}
+    <section id="directory">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                    <div id="searchBar" class="input-group input-group-sm">
+                        <span class="input-group-btn">
+                            <span id="get-user-location" class="btn btn-default fa fa-location-arrow"></span>
+
+                            <div class="btn-group btn-group-sm">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="dropdownMenu1" aria-haspopup="true" aria-expanded="false">
+                                    <span id="country-name">United Kingdom</span> <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                    <li><a class="country-choice" data-value="all">All</a></li>
+                                    <li><a class="country-choice" data-value="au">Australia</a></li>
+                                    <li><a class="country-choice" data-value="be">Belgium</a></li>
+                                    <li><a class="country-choice" data-value="br">Brazil</a></li>
+                                    <li><a class="country-choice" data-value="ca">Canada</a></li>
+                                    <li><a class="country-choice" data-value="fr">France</a></li>
+                                    <li><a class="country-choice" data-value="de">Germany</a></li>
+                                    <li><a class="country-choice" data-value="ie">Ireland</a></li>
+                                    <li><a class="country-choice" data-value="mx">Mexico</a></li>
+                                    <li><a class="country-choice" data-value="nl">Netherlands</a></li>
+                                    <li><a class="country-choice" data-value="nz">New Zealand</a></li>
+                                    <li><a class="country-choice" data-value="it">Italy</a></li>
+                                    <li><a class="country-choice" data-value="sk">Slovakia</a></li>
+                                    <li><a class="country-choice" data-value="si">Slovenia</a></li>
+                                    <li><a class="country-choice" data-value="za">South Africa</a></li>
+                                    <li><a class="country-choice" data-value="es">Spain</a></li>
+                                    <li><a class="country-choice" data-value="pt">Portugal</a></li>
+                                    <li><a class="country-choice" data-value="us">United States</a></li>
+                                    <li><a class="country-choice" data-value="uk">United Kingdom</a></li>
+                                </ul>
+                            </div>
+                            <div class="btn-group btn-group-sm">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="dropdownMenu2" aria-haspopup="true" aria-expanded="false">
+                                    <span id="search-radius-select">100 miles</span> <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                    <li><a class="search-radius" data-value="50">50 miles</a></li>
+                                    <li><a class="search-radius" data-value="100">100 miles</a></li>
+                                    <li><a class="search-radius" data-value="500">500 miles</a></li>
+                                    <li><a class="search-radius" data-value="1000">1,000 miles</a></li>
+                                </ul>
+                            </div>
+                        </span>
+
+                        <input id="autocomplete" type="text" class="form-control" placeholder="Enter a city or click arrow for current location" autocomplete="off">
+                    </div>
+                    <div style="padding: 4px;">
+                        {% for code, name in tags %}
+                            <label class="tag"><input class="search-tag" type="checkbox" value="{{ code }}"> {{ name }}</label>
+                        {% endfor %}
+                    </div>
+
+                    <input id="country-code" type="hidden" value="gb">
+                    <input id="search-radius" type="hidden" value="100">
+                    <input id="search-lat" type="hidden" value="">
+                    <input id="search-long" type="hidden" value="">
+                    <input id="search-tags" type="hidden" value="">
+
+                    <div id="map"></div>
+
+                    <div>
+                        <br>
+                        <h3>Get involved ...</h3>
+                        <p>You can help build the lending economy. Don't buy, borrow!</p>
+                        <p>
+                            If you know a library of things near you that's not on the list, please <a href="{{ path('contact_us') }}">get in touch</a> and we'll add it.
+                            <br>SHARE the directory on your social channels. The more people that know, the better.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div id="listings-wrapper">
+                        <ul id="listings"></ul>
+                        <div id="no-result" class="alert alert-warning" style="display: none">
+                            We don't have any libraries listed in this area, sorry.
+                            <br><br>
+                            <a href="{{ path('org') }}" class="btn btn-success">Add your organisation</a>
+                        </div>
+                        <div id="welcome">
+                            <p><strong>Welcome!</strong></p>
+                            <p>
+                                This open directory of lending libraries is for the benefit of anyone wanting to borrow
+                                an item from a local community provider rather than buying new.
+                            </p>
+                            <p>
+                                Search by entering your town, or let us use your current location by clicking the arrow.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {#The popup window#}
+    <div style="display: none">
+        <div id="info-content">
+            <div id="iw-name"></div>
+            <div class="popup-info" id="iw-email"></div>
+            <div class="popup-info" id="iw-address"></div>
+            <div id="iw-website-holder"><a href="" target="_blank" class="popup-info" id="iw-website"></a></div>
+            <div id="iw-facebook-holder"><a href="" target="_blank" class="popup-info" id="iw-facebook"></a></div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block pagescripts %}
+    <script>
+        var map, places, infoWindow;
+        var markers = [];
+        var autocomplete;
+        var countryRestrict = {'country': $("#country-code").val()};
+        var MARKER_PATH = 'https://developers.google.com/maps/documentation/javascript/images/marker_green';
+        var hostnameRegexp = new RegExp('^https?://.+?/');
+
+        var countries = {
+            'au': {
+                center: {lat: -25.3, lng: 133.8},
+                zoom: 4
+            },
+            'be': {
+                center: {lat: 50.6, lng: 4.3},
+                zoom: 8
+            },
+            'br': {
+                center: {lat: -14.2, lng: -51.9},
+                zoom: 3
+            },
+            'ca': {
+                center: {lat: 62, lng: -110.0},
+                zoom: 3
+            },
+            'ie': {
+                center: {lat: 53.4, lng: -7.7},
+                zoom: 6
+            },
+            'fr': {
+                center: {lat: 46.2, lng: 2.2},
+                zoom: 5
+            },
+            'de': {
+                center: {lat: 51.2, lng: 10.4},
+                zoom: 5
+            },
+            'mx': {
+                center: {lat: 23.6, lng: -102.5},
+                zoom: 4
+            },
+            'nz': {
+                center: {lat: -40.9, lng: 174.9},
+                zoom: 5
+            },
+            'nl': {
+                center: {lat: 52.4, lng: 5.42},
+                zoom: 7
+            },
+            'it': {
+                center: {lat: 41.9, lng: 12.6},
+                zoom: 5
+            },
+            'za': {
+                center: {lat: -30.6, lng: 22.9},
+                zoom: 5
+            },
+            'es': {
+                center: {lat: 40.5, lng: -3.7},
+                zoom: 5
+            },
+            'pt': {
+                center: {lat: 39.4, lng: -8.2},
+                zoom: 6
+            },
+            'us': {
+                center: {lat: 37.1, lng: -95.7},
+                zoom: 3
+            },
+            'gb': {
+                center: {lat: 54.8, lng: -4.6},
+                zoom: 5
+            },
+            'si': {
+                center: {lat: 46.1, lng: 15.1},
+                zoom: 7
+            },
+            'sk': {
+                center: {lat: 48.6, lng: 19.5},
+                zoom: 7
+            }
+        };
+
+        function initMap() {
+            var countryCode = $("#country-code").val();
+            map = new google.maps.Map(document.getElementById('map'), {
+                zoom: countries[countryCode].zoom,
+                center: countries[countryCode].center,
+                mapTypeControl: false,
+                panControl: false,
+                zoomControl: true,
+                streetViewControl: false
+            });
+
+            infoWindow = new google.maps.InfoWindow({
+                content: document.getElementById('info-content')
+            });
+
+            // Create the autocomplete object and associate it with the UI input control.
+            // Restrict the search to the default country, and to place type "cities".
+            autocomplete = new google.maps.places.Autocomplete(
+                    /** @type {!HTMLInputElement} */ (
+                        document.getElementById('autocomplete')), {
+                        types: ['(cities)'],
+                        componentRestrictions: countryRestrict
+                    });
+            autocomplete.addListener('place_changed', onPlaceChanged);
+        }
+
+        // Add a DOM event listener to react when the user selects a country.
+        $(".country-choice").on('click', function() {
+            var countryCode = $(this).data('value');
+            $("#country-name").html($(this).text());
+            $("#country-code").val(countryCode);
+            setAutocompleteCountry(countryCode);
+            $("#autocomplete").val("");
+        });
+
+        $(".search-radius").on('click', function() {
+            var radius = $(this).data('value');
+            $("#search-radius-select").html($(this).text());
+            $("#search-radius").val(radius);
+            search();
+        });
+
+        $("#get-user-location").on('click', function() {
+            getLocation();
+        });
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(gotoPosition,geoLocateError);
+            }
+        }
+        function geoLocateError() {
+            $("#geolocateWarning").show();
+        }
+        function gotoPosition(position) {
+            if (!$("#search-lat").val()) {
+                $("#search-lat").val(position.coords.latitude);
+                $("#search-long").val(position.coords.longitude);
+            }
+            $("#autocomplete").val("Current position");
+            map.panTo({lat: position.coords.latitude, lng: position.coords.longitude});
+            search();
+        }
+
+        $(".search-tag").on('change', function() {
+            var tags = '';
+            $(".search-tag").each(function() {
+                if ($(this).is(':checked')) {
+                    tags = tags+','+$(this).val();
+                }
+            });
+            $("#search-tags").val(tags);
+            search();
+        });
+
+        $(document).on('click', ".listing-result" , function() {
+            var i = $(this).data("id");
+            google.maps.event.trigger(markers[i], 'click');
+            console.log("Clicked "+i);
+        });
+
+        // When the user selects a city, get the place details for the city and
+        // zoom the map in on the city.
+        function onPlaceChanged() {
+            var place = autocomplete.getPlace();
+            if (place.geometry) {
+                map.panTo(place.geometry.location);
+                $("#search-lat").val(place.geometry.location.lat);
+                $("#search-long").val(place.geometry.location.lng);
+                search();
+            }
+        }
+
+        function setMapZoom() {
+            var radius  = $("#search-radius").val();
+            var zoom = 8;
+            if (radius == 1000) {
+                zoom = 4;
+            } else if (radius == 500) {
+                zoom = 6;
+            } else if (radius == 100) {
+                zoom = 7;
+            } else {
+                // 50
+                zoom = 8;
+            }
+            map.setZoom(zoom);
+        }
+
+        // Search for hotels in the selected city, within the viewport of the map.
+        function search() {
+            var country = $("#country-code").val();
+            var radius  = $("#search-radius").val();
+            var lat     = $("#search-lat").val();
+            var long    = $("#search-long").val();
+            var tags    = $("#search-tags").val();
+
+            setMapZoom();
+
+            if (lat && long) {
+                $("#no-result").hide();
+                $.get( "{{ path('search') }}?country="+country+'&radius='+radius+'&lat='+lat+"&long="+long+"&tags="+tags, function( results ) {
+                    clearResults();
+                    clearMarkers();
+                    for (var i = 0; i < results.length; i++) {
+                        var markerLetter = String.fromCharCode('A'.charCodeAt(0) + (i % 26));
+                        var markerIcon = MARKER_PATH + markerLetter + '.png';
+                        // Use marker animation to drop the icons incrementally on the map.
+                        markers[i] = new google.maps.Marker({
+                            position: results[i].position,
+                            animation: google.maps.Animation.DROP,
+                            icon: markerIcon
+                        });
+                        markers[i].placeResult = results[i];
+                        google.maps.event.addListener(markers[i], 'click', showInfoWindow);
+                        setTimeout(dropMarker(i), i * 100);
+                        addResult(results[i], i);
+                    }
+                    if (i == 0) {
+                        $("#no-result").show();
+                    }
+                });
+            }
+
+        }
+
+        function clearMarkers() {
+            for (var i = 0; i < markers.length; i++) {
+                if (markers[i]) {
+                    markers[i].setMap(null);
+                }
+            }
+            markers = [];
+        }
+
+        // Set the country restriction based on user input.
+        // Also center and zoom the map on the given country.
+        function setAutocompleteCountry(countryCode) {
+            if (countryCode == 'all') {
+                autocomplete.setComponentRestrictions({'country': []});
+                map.setCenter({lat: 15, lng: 0});
+                map.setZoom(2);
+            } else {
+                autocomplete.setComponentRestrictions({'country': countryCode});
+                map.setCenter(countries[countryCode].center);
+                map.setZoom(countries[countryCode].zoom);
+            }
+            clearResults();
+            clearMarkers();
+        }
+
+        function dropMarker(i) {
+            return function() {
+                markers[i].setMap(map);
+            };
+        }
+
+        function addResult(result, i) {
+            var results = document.getElementById('results');
+            var markerLetter = String.fromCharCode('A'.charCodeAt(0) + (i % 26));
+            var markerIcon = MARKER_PATH + markerLetter + '.png';
+            var tagHTML = '';
+            var tags = result.tags.split(",");
+            for(var n = 0; n < tags.length; n++) {
+                tagHTML += '<span class="label">'+tags[n]+'</span> ';
+            }
+            $("#listings").append('<li class="listing-result" data-id="'+i+'"><table><tr><td style="width: 24px; vertical-align: top"><img src="'+markerIcon+'" class="placeIcon"></td><td style="vertical-align: top; padding-left: 6px;">'+result.name+' <div class="listing-address">'+result.address+'</div><div class="listing-labels">'+tagHTML+'</div></td></tr></table></li>');
+        }
+
+        function clearResults() {
+            $("#welcome").hide();
+            $(".listing-result").remove();
+        }
+
+        // Get the place details for a hotel. Show the information in an info window,
+        // anchored on the marker for the hotel that the user selected.
+        function showInfoWindow() {
+            var marker = this;
+            $.get( "{{ path('site_details') }}/"+marker.placeResult.siteId, function( results ) {
+                infoWindow.open(map, marker);
+                $("#iw-name").html(marker.placeResult.name);
+                $("#iw-email").html(marker.placeResult.email);
+                $("#iw-address").html(marker.placeResult.address);
+                if (marker.placeResult.website) {
+                    $("#iw-website-holder").show();
+                    $("#iw-website").html(marker.placeResult.website).attr('href', 'http://'+marker.placeResult.website);
+                } else {
+                    $("#iw-website-holder").hide();
+                }
+                if (marker.placeResult.facebook) {
+                    $("#iw-facebook-holder").show();
+                    $("#iw-facebook").html(marker.placeResult.facebook).attr('href', 'http://'+marker.placeResult.facebook);
+                } else {
+                    $("#iw-facebook-holder").hide();
+                }
+            });
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAoPyMEof07SBXci82nFX1Aj4ROUZwMUMI&libraries=places&callback=initMap" async defer></script>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "directory.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block head %}{% endblock %}
+
+{% block hero %}
+    <section id="feature-heading">
+        <div class="container">
+            <h2>Organisation directory &raquo; {% block breadcrumb %}Home{% endblock %}</h2>
+        </div>
+    </section>
+{% endblock %}
+
+{% block body %}
+    <div class="container" >
+    {% block fos_user_content %}{% endblock %}
+        <br><br>
+    </div>
+{% endblock %}
+
+{% block pagescripts %}{% endblock %}
+

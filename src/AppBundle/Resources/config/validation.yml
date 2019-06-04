@@ -1,0 +1,20 @@
+AppBundle\Entity\Contact:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: 
+             fields: email
+             errorPath: email 
+             message: fos_user.email.already_used
+             groups: [ "AppBundleRegistration", "AppBundleProfile" ]
+
+AppBundle\Entity\Org:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+             fields: name
+             errorPath: name
+             message: "That organisation already exists. If you're the owner, please contact us to claim it."
+             groups: [ "Org", "AppBundleRegistration" ]
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+             fields: owner
+             errorPath: owner
+             message: "This owner is assigned to another organisation."
+             groups: [ "Org", "AppBundleRegistration" ]

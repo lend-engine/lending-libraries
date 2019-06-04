@@ -1,0 +1,16 @@
+imports:
+    - { resource: config.yml }
+    - { resource: security_https.yml }
+
+monolog:
+    handlers:
+        main:
+            type:         fingers_crossed
+            action_level: error
+            handler:      nested
+        nested:
+            type:  stream
+            path:  'php://stderr'
+            level: debug
+        console:
+            type:  console

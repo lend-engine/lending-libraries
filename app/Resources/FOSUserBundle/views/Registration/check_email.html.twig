@@ -1,0 +1,21 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% block hero %}
+    <section id="title">
+        <div class="container">
+            <h2>Thank you for adding your organisation.</h2>
+        </div>
+    </section>
+{% endblock %}
+
+{% block fos_user_content %}
+    <div class="row">
+        <div class="col-md-12">
+            <br><br>
+            <p>
+                Please check your email for a confirmation; this will also give you a link to validate your email address,
+                which you will need to do in order to manage your listing in the future.
+            </p>
+        </div>
+    </div>
+{% endblock %}

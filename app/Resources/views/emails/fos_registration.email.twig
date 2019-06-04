@@ -1,0 +1,39 @@
+{# app/Resources/views/emails/fos_registration.email.twig #}
+{% extends '/emails/template.html.twig' %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block subject %}
+    {% autoescape false %}
+    {{ 'registration.email.subject'|trans({'%username%': user.username, '%confirmationUrl%': confirmationUrl}, 'FOSUserBundle') }}
+    {% endautoescape %}
+{% endblock %}
+
+{% block heading %}
+    Hello!
+{% endblock %}
+
+{% block content %}
+    <div>
+        {% block body_text %}
+            {% if user.org %}
+            We've added your organisation "{{ user.org.name }}" to the directory of lending organisations at https://www.lend-engine.com/directory.
+            <br><br>
+            Name: <strong>{{ user.org.name }}</strong><br>
+            Email: <strong>{{ user.org.email }}</strong><br>
+            Website: <strong>{{ user.org.website }}</strong><br>
+            Facebook page: <strong>{{ user.org.facebook }}</strong><br>
+            Tags: <strong>{{ user.org.lends }}</strong><br>
+            {% for site in user.org.sites %}
+                Address: <strong>{{ site.address }}, {{ site.postcode }}</strong><br>
+            {% endfor %}
+
+            <br><br>To update your listing, visit the link below.
+            <br><br>
+            {% endif %}
+            {{ confirmationUrl }}
+        {% endblock %}
+    </div>
+{% endblock %}
+
+{% block body_html %}{% endblock %}

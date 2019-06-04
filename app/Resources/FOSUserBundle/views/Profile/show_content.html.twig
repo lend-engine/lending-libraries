@@ -1,0 +1,75 @@
+<h2>My account</h2>
+
+<div class="fos_user_user_show row">
+    <div class="col-md-12">
+
+        <h4>Personal details</h4>
+        <p>
+            {{ user.firstName }} {{ user.lastName }}<br>
+            {{ user.email }}
+        </p>
+        <br>
+        <a href="{{ path('fos_user_profile_edit') }}" class="">Edit profile</a>&nbsp;&nbsp;&nbsp;
+        <a href="{{ path('fos_user_change_password') }}" class="">Change password</a>
+
+        <br><br>
+
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Organisation</h4>
+                <div class="help-block">
+
+                </div>
+                {% if app.user.org %}
+                    <p>
+                        <strong>{{ app.user.org.name }}</strong><br>
+                        Website: {{ app.user.org.website }}<br>
+                        Email: {{ app.user.org.email }}<br>
+                        Tags: {{ app.user.org.lends }}
+                    </p>
+                    <div style="padding: 0 0 10px;">
+                        {% if app.user.org.status == 'ACTIVE' %}
+                            <span class="label label-success">Shows in directory</span>
+                        {% else %}
+                            <span class="label label-danger">Not shown in directory</span>
+                        {% endif %}
+                    </div>
+                    <p><a href="{{ path('org', {id: app.user.org.id}) }}" class="">Edit organisation</a></p>
+                {% else %}
+                    <a href="{{ path('org') }}" class="">Add your organisation</a>
+                {% endif %}
+            </div>
+            <div class="col-md-6">
+                <h4>Sites</h4>
+                <div class="help-block">
+                    Sites appear on the directory map. <br>Add as many as you need for your organisation.
+                </div>
+                {% if app.user.org %}
+                    {% if app.user.org.sites|length > 0 %}
+                        {% for site in app.user.org.sites %}
+                            <div>
+                                <p>
+                                    <strong>{{ site.name }}</strong> <a href="{{ path('site', {id: app.user.org.id, siteId: site.id}) }}" class="pull-right">Edit</a>
+                                    <br>{{ site.address }}, {{ site.postcode }}, {{ site.country }}
+                                    <br>{{ site.description }}
+                                </p>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="alert alert-warning">You haven't added any sites yet</p>
+                    {% endif %}
+                    <br>
+                    <a href="{{ path('site', {id: app.user.org.id}) }}" class="">Add a site</a>
+                {% else %}
+                    <p>Add your organisation first.</p>
+                {% endif %}
+            </div>
+        </div>
+
+
+
+    </div>
+    <div class="col-md-6">
+
+    </div>
+</div>

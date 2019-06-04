@@ -1,0 +1,51 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% block head %}
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgbkO6VOtnvsh1aqEExrv6HSQzSDsO2Ik"></script>
+    <script type="text/javascript">
+        function getLatLong() {
+            var geocoder = new google.maps.Geocoder();
+            var address = $("#fos_user_registration_form_address").val();
+            address = address + ',' + $("#fos_user_registration_form_postcode").val();
+            address = address + ',' + $("#fos_user_registration_form_country").val();
+            geocoder.geocode({'address': address}, function(results, status)
+            {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    var lat = results[0].geometry.location.lat();
+                    var lng = results[0].geometry.location.lng();
+                    $("#fos_user_registration_form_latitude").val(lat);
+                    $("#fos_user_registration_form_longitude").val(lng);
+                }
+            });
+        }
+    </script>
+{% endblock %}
+
+{% block hero %}
+    <section id="feature-heading">
+        <div class="container">
+            <h1>Add organisation</h1>
+        </div>
+    </section>
+{% endblock %}
+
+{% block fos_user_content %}
+{% include "FOSUserBundle:Registration:register_content.html.twig" %}
+{% endblock fos_user_content %}
+
+{% block pagescripts %}
+    <script>
+        $("#fos_user_registration_form_address").on('change', function() {
+            getLatLong();
+        });
+        $("#fos_user_registration_form_postcode").on('change', function() {
+            getLatLong();
+        });
+        $("#fos_user_registration_form_country").on('change', function() {
+            getLatLong();
+        });
+        $("#fos_user_registration_form_orgEmail").on('change', function() {
+            $("#fos_user_registration_form_email").val($(this).val());
+        });
+    </script>
+{% endblock %}

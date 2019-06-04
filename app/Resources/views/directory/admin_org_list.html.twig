@@ -1,0 +1,86 @@
+{% extends 'directory/admin.html.twig' %}
+
+{% block title %}A directory of lending organisations{% endblock %}
+
+{% block head %}{% endblock %}
+
+{% block body %}
+    <div style="padding: 20px;">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="dataTable table table-hover">
+                    <thead>
+                    <tr>
+                        <td>Name</td>
+                        <td>Added</td>
+                        <td>Owner</td>
+                        <td>Added by</td>
+                        <td>Website/FB/Address</td>
+                        <td>Lends</td>
+                        <td> </td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for org in orgs %}
+                        <tr>
+                            <td>
+                                <a href="{{ path('org', {id: org.id}) }}"><nobr>{{ org.name }}</nobr></a>
+                                <br>
+                                {% for site in org.sites %}
+                                    <div class="small" style="padding: 4px;">
+                                        <a class="small" href="{{ path('site', {id: org.id, siteId: site.id}) }}">{{ site.name }}</a>
+                                        <br>{{ site.address }}
+                                        <br>{{ site.latitude|number_format(2) }}, {{ site.longitude|number_format(2) }}
+                                    </div>
+                                {% endfor %}
+                                <a href="{{ path('site', {id: org.id}) }}" class="small">Add site</a>
+                            </td>
+                            <td>{{ org.createdAt|date("Y-m-d H:i:s") }}</td>
+                            <td>{% if org.owner %}{{ org.owner.email }}{% endif %}</td>
+                            <td>
+                                {% if org.createdBy == org.owner %}
+                                    <strong>Self</strong>
+                                {% else %}
+                                    {{ org.createdBy.firstName }} {{ org.createdBy.lastName }}
+                                {% endif %}
+                            </td>
+                            <td>
+                                {{ org.website }}
+                                <br>{{ org.facebook }}
+                            </td>
+                            <td>
+                                {% set tags = org.lends|split(',') %}
+                                {% for tag in tags %}
+                                    <div>{{ tag }}</div>
+                                {% endfor %}
+                            </td>
+                            <td>
+                                {% if org.status == "ACTIVE" %}
+                                    <span class="label label-success">Active</span>
+                                {% else %}
+                                    <span class="label label-warning">Hidden</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block pagescripts %}
+    <script>
+    $(document).ready( function () {
+        $('.dataTable').DataTable({
+            ordering: true,
+            pageLength: 100,
+            "order": [[ 1, "desc" ]]
+        });
+    } );
+</script>
+{% endblock %}

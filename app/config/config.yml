@@ -1,0 +1,84 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: services.yml }
+
+parameters:
+    locale: en
+    aws_key: ~
+    aws_secret: ~
+
+framework:
+    secret:          "%secret%"
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: ~
+    form:            ~
+    csrf_protection: ~
+    validation:      { enable_annotations: true }
+    templating:
+        engines: ['twig']
+    default_locale:  "%locale%"
+    translator:      { fallbacks: ["%locale%"] }
+    trusted_hosts:   ~
+    trusted_proxies: ~
+    session:
+        # handler_id set to null will use default session handler from php.ini
+        handler_id:  ~
+        save_path:   "%kernel.root_dir%/../var/sessions/%kernel.environment%"
+    fragments:       ~
+    http_method_override: true
+    assets: ~
+
+# Twig Configuration
+twig:
+    debug:            "%kernel.debug%"
+    strict_variables: "%kernel.debug%"
+    form_themes:
+        - ':form:fields.html.twig'
+
+# Doctrine Configuration
+doctrine:
+    dbal:
+        driver:   pdo_mysql
+        host:     "%database_host%"
+        port:     "%database_port%"
+        dbname:   "%database_name%"
+        user:     "%database_user%"
+        password: "%database_password%"
+        charset:  UTF8
+
+    orm:
+        auto_generate_proxy_classes: "%kernel.debug%"
+        naming_strategy: doctrine.orm.naming_strategy.underscore
+        auto_mapping: true
+
+# FOS User bundle
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    user_class: AppBundle\Entity\Contact
+    from_email:
+        address: hello@lend-engine.com
+        sender_name: Lend Engine
+    resetting:
+        token_ttl: 3600
+        email:
+            template: emails/fos_password_reset.email.twig
+    registration:
+        confirmation:
+            enabled: true
+            template: emails/fos_registration.email.twig
+        form:
+            type: AppBundle\Form\Type\FosRegistrationType
+            validation_groups: [AppBundleRegistration]
+    profile:
+        form:
+            type: AppBundle\Form\Type\ProfileType
+            validation_groups: [AppBundleProfile]
+    service:
+        mailer: service.fos_user_mailer
+
+hype_mailchimp:
+    api_key: "%env(MAILCHIMP_API_KEY)%"
+    default_list: "temp"
+    ssl: true

@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block h1 %}About the Lend Engine{% endblock %}
+
+{% block body %}
+
+    <section id="title">
+        <div class="container">
+            <h1>
+                A little bit about the Lend Engine
+            </h1>
+        </div>
+    </section>
+
+    <section id="feature1">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <p>
+                        Story here
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="divider">
+        <div class="container">
+            <h2>
+                Sign up for a free account now.
+            </h2>
+            <a href="{{ path('signup') }}" class="btn btn-success btn-signup">Sounds good. Let's go!</a>
+        </div>
+    </section>
+
+
+{% endblock %}

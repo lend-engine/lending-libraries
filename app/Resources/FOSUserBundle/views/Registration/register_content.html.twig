@@ -1,0 +1,52 @@
+<div class="row">
+    <div class="col-md-12">
+
+        <form action="{{ path('fos_user_registration_register') }}" method="POST" class="fos_user_registration_register">
+
+            {{ form_start(form) }}
+            {{ form_errors(form) }}
+
+            <div class="row">
+                <div class="col-md-4">
+                    <h4>About your organisation</h4>
+                    {{ form_row(form.orgName) }}
+                    {{ form_row(form.orgEmail) }}
+                    {{ form_row(form.website) }}
+                    {{ form_row(form.facebook) }}
+                    {{ form_row(form.tags) }}
+                </div>
+                <div class="col-md-4">
+                    <h4>Location / address</h4>
+                    {{ form_row(form.siteName) }}
+                    {{ form_row(form.address) }}
+                    {{ form_row(form.postcode) }}
+                    {{ form_row(form.description) }}
+                    {{ form_row(form.country) }}
+                    <div class="help-block">
+                        You can add further sites for this organisation once you've created your account.
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <h4>Your details</h4>
+                    <div class="help-block">
+                        We'll add you as the owner so that you can log back in and make changes if you need in the future.
+                    </div>
+                    {{ form_row(form.firstName) }}
+                    {{ form_row(form.lastName) }}
+                    {{ form_row(form.email) }}
+                    {{ form_row(form.plainPassword) }}
+                    <div class="form-group">
+                        <input type="submit"
+                               value="Add my organisation"
+                               class="btn btn-success btn-block btn-flat" />
+                    </div>
+                </div>
+            </div>
+
+            {{ form_end(form) }}
+
+        </form>
+    </div>
+</div>
+
+

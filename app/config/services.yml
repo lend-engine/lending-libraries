@@ -1,0 +1,20 @@
+services:
+    doctrine.dbal.connection_factory:
+        class: AppBundle\CustomConnectionFactory
+        arguments:
+            - "@session"
+
+    service.fos_user_mailer:
+        class: AppBundle\Mailer\FOSMailer
+        arguments:
+            - "@service_container"
+            - "@twig"
+            - "@router"
+
+    fos_user.registration.controller:
+        class: AppBundle\Controller\Directory\OrgRegistrationController
+        arguments:
+            $eventDispatcher: '@event_dispatcher'
+            $formFactory: '@fos_user.registration.form.factory'
+            $userManager: '@fos_user.user_manager'
+            $tokenStorage: '@security.token_storage'

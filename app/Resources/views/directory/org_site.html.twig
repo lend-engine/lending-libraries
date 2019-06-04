@@ -1,0 +1,99 @@
+{% extends 'directory.html.twig' %}
+
+{% block title %}A directory of lending organisations{% endblock %}
+
+{% block head %}
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgbkO6VOtnvsh1aqEExrv6HSQzSDsO2Ik"></script>
+    <script type="text/javascript">
+        function getLatLong() {
+            var geocoder = new google.maps.Geocoder();
+            var address = $("#org_site_address").val();
+            address = address + ',' + $("#org_site_postcode").val();
+            address = address + ',' + $("#org_site_country").val();
+            geocoder.geocode({'address': address}, function(results, status)
+            {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    var lat = results[0].geometry.location.lat();
+                    var lng = results[0].geometry.location.lng();
+                    $("#org_site_latitude").val(lat);
+                    $("#org_site_longitude").val(lng);
+                }
+            });
+        }
+        function save() {
+            if (!$("#org_site_country").val()) {
+                alert("Please choose a country");
+                return false;
+            }
+            if (!$("#org_site_name").val()) {
+                alert("Please choose a name");
+                return false;
+            }
+            if (!$("#org_site_address").val()) {
+                alert("Please enter an address");
+                return false;
+            }
+            getLatLong();
+            window.setTimeout(submitForm, 1000);
+        }
+        function submitForm() {
+            $("form[name='org_site']").submit();
+        }
+    </script>
+{% endblock %}
+
+{% block hero %}
+    <section id="feature-heading">
+        <div class="container">
+            <h2>Organisation directory &raquo; Add / manage sites</h2>
+        </div>
+    </section>
+{% endblock %}
+
+{% block body %}
+    <section id="feature1">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+
+                    {% if mode == 'edit' %}
+                        <h1>Edit site details</h1>
+                    {% else %}
+                        <h1>Add a site to {{ org.name }}</h1>
+                    {% endif %}
+
+                    {{ form_start(form) }}
+                    {{ form_errors(form) }}
+
+                    {% if help is defined %}
+                        <span class="help">{{ help }}</span>
+                    {% endif %}
+
+                    <div class="row">
+                        <div class="col-md-6">
+
+                            {{ form_row(form.name) }}
+                            {{ form_row(form.address) }}
+                            {{ form_row(form.postcode) }}
+                            {{ form_row(form.description) }}
+                            {{ form_row(form.country) }}
+                            {{ form_row(form.latitude) }}
+                            {{ form_row(form.longitude) }}
+
+                            {% if mode == 'edit' %}
+                                <input type="button" onClick="save();" class="btn btn-success" value="Update site">
+                                <a class="pull-right" href="{{ path('site_delete', {id: org.id, siteId: siteId}) }}">Delete site</a>
+                            {% else %}
+                                <input type="button" onClick="save();" class="btn btn-success" value="Add site">
+                            {% endif %}
+
+                        </div>
+                    </div>
+
+                    {{ form_end(form) }}
+
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

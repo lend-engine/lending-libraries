@@ -1,0 +1,13 @@
+{# app/Resources/views/emails/signup.html.twig #}
+{% extends 'emails/template.html.twig' %}
+
+{% block title %}Sign up{% endblock %}
+
+{% block heading %}Your Lend Engine trial account{% endblock %}
+
+{% block content %}
+    <p>
+        Your account is nearly ready ...
+    </p>
+    <a href="{{ activationUrl }}">Click here to activate your Lend Engine free trial</a>
+{% endblock %}

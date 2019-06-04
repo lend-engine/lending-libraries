@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}The Lend Engine - Software for lending organisations{% endblock %}</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="google-site-verification" content="b1K5EwNT0TS04PPYUFYbECw27g91-IMK_zYeLchEGFI" />
+
+    <link rel="stylesheet" href="/css/animate.min.css">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Asap:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+
+    {% block head %}{% endblock %}
+</head>
+<body>
+
+<nav class="navbar navbar-default" role="navigation">
+    <div class="">
+        <div class="navbar-header">
+            <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon icon-bar"></span>
+                <span class="icon icon-bar"></span>
+                <span class="icon icon-bar"></span>
+            </button>
+            <a href="{{ path('homepage') }}" class="navbar-brand"><strong>Lend</strong>Engine</a>
+        </div>
+        <div class="collapse navbar-collapse">
+            {{ include('default/menu.html.twig') }}
+        </div>
+
+    </div>
+</nav>
+
+<div class="row" style="padding: 10px;">
+    <div class="col-md-4">
+        &nbsp;&nbsp;Hello, {{ app.user.firstName }}. &nbsp;&nbsp;
+        <a href="{{ path('fos_user_profile_show') }}" style="padding: 0 10px">My account</a>
+        <a href="{{ path('fos_user_security_logout') }}" style="padding: 0 10px">Log out</a>
+    </div>
+    <div class="col-md-8">
+        <a href="{{ path('admin_libraries') }}" style="padding: 0 10px;">Organisations</a>
+        <a href="{{ path('admin_owners') }}" style="padding: 0 10px;">Owners</a>
+        <a href="{{ path('import') }}" style="padding: 0 10px;">Import</a>
+        <a href="{{ path('org') }}" class="pull-right" style="padding: 0 10px;">Add org</a>
+        <a href="{{ path('admin_contact') }}" class="pull-right" style="padding: 0 10px;">Add contact</a>
+    </div>
+</div>
+
+{% for flash_message in app.session.flashbag.get('success') %}
+    <div class="alert-success" style="padding: 10px;">
+        <div class="container">
+            {{ flash_message|nl2br }}
+        </div>
+    </div>
+{% endfor %}
+{% for flash_message in app.session.flashbag.get('error') %}
+    <div class="alert-danger" style="padding: 10px;">
+        <div class="container">
+            {{ flash_message|nl2br }}
+        </div>
+    </div>
+{% endfor %}
+
+{% block account_nav %}{% endblock %}
+{% block body %}{% endblock %}
+
+<footer>
+    <div class="container">
+        <div class="row">
+            {% include('blocks/footer.html.twig') %}
+        </div>
+        <br/>
+        <div class="row">
+
+        </div>
+    </div>
+</footer>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/wow.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/custom.js"></script>
+<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+{% block pagescripts %}{% endblock %}
+
+</body>
+</html>
