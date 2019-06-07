@@ -111,7 +111,7 @@
                                     <li><a class="country-choice" data-value="es">Spain</a></li>
                                     <li><a class="country-choice" data-value="pt">Portugal</a></li>
                                     <li><a class="country-choice" data-value="us">United States</a></li>
-                                    <li><a class="country-choice" data-value="uk">United Kingdom</a></li>
+                                    <li><a class="country-choice" data-value="gb">United Kingdom</a></li>
                                 </ul>
                             </div>
                             <div class="btn-group btn-group-sm">
@@ -135,7 +135,7 @@
                         {% endfor %}
                     </div>
 
-                    <input id="country-code" type="hidden" value="us">
+                    <input id="country-code" type="hidden" value="all">
                     <input id="search-radius" type="hidden" value="100">
                     <input id="search-lat" type="hidden" value="">
                     <input id="search-long" type="hidden" value="">
@@ -203,8 +203,8 @@
 
         var countries = {
             'all': {
-                center: {lat: 21.9, lng: -37},
-                zoom: 4
+                center: {lat: 15, lng: 0},
+                zoom: 2
             },
             'au': {
                 center: {lat: -25.3, lng: 133.8},
