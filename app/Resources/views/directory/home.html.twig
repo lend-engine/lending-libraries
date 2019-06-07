@@ -300,8 +300,7 @@
             autocomplete = new google.maps.places.Autocomplete(
                     /** @type {!HTMLInputElement} */ (
                         document.getElementById('autocomplete')), {
-                        types: ['(cities)'],
-                        componentRestrictions: countryRestrict
+                        types: ['(cities)']
                     });
             autocomplete.addListener('place_changed', onPlaceChanged);
         }
