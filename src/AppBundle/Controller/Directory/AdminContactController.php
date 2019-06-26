@@ -22,6 +22,10 @@ class AdminContactController extends Controller
         $em = $this->getDoctrine()->getManager();
         $key = getenv('SYMFONY__POSTMARK_API_KEY');
 
+        if (!$this->getUser()) {
+            return $this->redirectToRoute("homepage");
+        }
+
         if (!$this->getUser()->hasRole('ROLE_ADMIN')) {
             $this->addFlash('error', "You're not admin.");
             return $this->redirectToRoute('directory');

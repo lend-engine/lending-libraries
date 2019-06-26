@@ -19,6 +19,10 @@ class OrgController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
+        if (!$this->getUser()) {
+            return $this->redirectToRoute("homepage");
+        }
+
         if ($id) {
             if (!$org = $this->getDoctrine()->getRepository('AppBundle:Org')->find($id)) {
                 $this->addFlash('error', "We couldn't find an organisation with id {$id}.");

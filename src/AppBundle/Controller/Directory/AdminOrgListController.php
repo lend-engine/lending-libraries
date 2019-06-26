@@ -14,6 +14,10 @@ class AdminOrgListController extends Controller
      */
     public function AdminLibraryListAction(Request $request)
     {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute("homepage");
+        }
+
         /** @var \AppBundle\Repository\OrgRepository $orgRepo */
         $orgRepo = $this->getDoctrine()->getRepository('AppBundle:Org');
         $orgs = $orgRepo->findAll();

@@ -14,6 +14,10 @@ class AdminContactListController extends Controller
      */
     public function AdminLibraryListAction(Request $request)
     {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute("homepage");
+        }
+
         /** @var \AppBundle\Repository\ContactRepository $contactRepo */
         $contactRepo = $this->getDoctrine()->getRepository('AppBundle:Contact');
         $contacts = $contactRepo->findAll();

@@ -18,7 +18,6 @@ class OrgSiteController extends Controller
     public function addSiteAction(Request $request, $id, $siteId)
     {
         $em = $this->getDoctrine()->getManager();
-        $key = getenv('SYMFONY__POSTMARK_API_KEY');
 
         // Verification
         if ($id) {

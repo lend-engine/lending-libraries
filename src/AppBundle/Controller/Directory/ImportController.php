@@ -24,8 +24,10 @@ class ImportController extends Controller
      */
     public function importAction(Request $request)
     {
+        if (!$user = $this->getUser()) {
+            return $this->redirectToRoute("homepage");
+        }
 
-        $user = $this->getUser();
         $formBuilder = $this->createFormBuilder();
         $em = $this->getDoctrine()->getManager();
 
